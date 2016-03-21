@@ -6,7 +6,7 @@ var c = angular.module("CtrlModule",["appServices"], function(){
 c.value("vcart", []);
 
 
-c.controller("ProductController", function($scope,ProductService,cartService) {
+c.controller("ProductController", function($scope,$location,ProductService,cartService) {
 	$scope.num = 3;
 	var flag;
 
@@ -50,6 +50,31 @@ c.controller("ProductController", function($scope,ProductService,cartService) {
 		
 		$scope.num++;
 	}
+	
+	
+	$scope.showGallery = function(index){
+		$scope.currentIndex = index;
+		$location.path("/showGallery");
+	}
+    
+    $scope.currentIndex = 0;
+
+    $scope.setCurrentSlideIndex = function (index) {
+        $scope.currentIndex = index;
+    };
+
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
+
+    $scope.prevSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex < $scope.productsList.length - 1) ? ++$scope.currentIndex : 0;
+    };
+
+    $scope.nextSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.productsList.length - 1;
+    };
+
 });
 
 
